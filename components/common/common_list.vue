@@ -27,27 +27,31 @@
 		<image class="rounded w-100" v-if="item.titlepic" @click="openDetail" :src="item.titlepic" style="height: 350rpx;"></image>
 		<!-- 按钮 -->
 		<view class="flex align-center" >
+			<!-- 顶 -->
 			<view class="flex align-center justify-center flex-1 animated faster " 
 			hover-class="jello text-main" @click="doSupport('support')"
 			:class="item.support.type === 'support'?'support-active':''">
 				<text class="iconfont icon-dianzan2 mr-2" ></text>
-				<text>{{item.support.support_count}}</text>
+				<text>{{item.support.support_count > 0 ? item.support.support_count:'顶'}}</text>
 			</view>
+			<!-- 踩 -->
 			<view class="flex align-center justify-center flex-1 animated faster"
 			 hover-class="jello text-main" @click="doSupport('unsupport')"
 			 :class="item.support.type === 'unsupport'?'support-active':''">
 				<text class="iconfont icon-cai mr-2" ></text>
-				<text>{{item.support.unsupport_count}}</text>
+				<text>{{item.support.unsupport_count >0 ? item.support.unsupport_count:'踩'}}</text>
 			</view>
+			<!-- 评论 -->
 			<view class="flex align-center justify-center flex-1 animated faster" 
 			hover-class="jello text-main" @click="openDetail">
 				<text class="iconfont icon-pinglun2 mr-2" ></text>
-				<text>{{item.comment_count}}</text>
+				<text>{{item.comment_count > 0 ? item.comment_count:'评论'}}</text>
 			</view>
+			<!-- 分享 -->
 			<view class="flex align-center justify-center flex-1 animated faster" 
 			hover-class="jello text-main" @click="openDetail">
 				<text class="iconfont icon-fenxiang mr-2" ></text>
-				<text>{{item.share_num}}</text>
+				<text>{{item.share_num > 0 ? item.share_num:'分享'}}</text>
 			</view>
 		</view>
 	</view>
