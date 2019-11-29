@@ -17,14 +17,21 @@
 			<swiper-item v-for="(item,index) in newsList" :key="index">
 				<scroll-view scroll-y="true" :style="'height:'+scrollH+'px;'"
 				@scrolltolower="loadmore(index)">
-					<!-- 列表 -->
-					<block v-for="(item2,index2) in item.list" :key="index2">
-						<common-list :item="item2" :index="index2" @follow="follow" @doSupport="doSupport"></common-list>
-						<!-- 全局分割线 -->
-						<divider></divider>
-					</block>
-					<!-- 上拉加载 -->
-					<load-more :loadmore="item.loadmore"></load-more>
+					<!-- 有数据 -->
+					<template v-if="item.list.length > 0">
+						<!-- 列表 -->
+						<block v-for="(item2,index2) in item.list" :key="index2">
+							<common-list :item="item2" :index="index2" @follow="follow" @doSupport="doSupport"></common-list>
+							<!-- 全局分割线 -->
+							<divider></divider>
+						</block>
+						<!-- 上拉加载 -->
+						<load-more :loadmore="item.loadmore"></load-more>
+					</template>
+					<!-- 无数据 -->
+					<template v-else>
+						<no-thing></no-thing>
+					</template>
 				</scroll-view>
 			</swiper-item>
 		</swiper>
@@ -32,47 +39,7 @@
 </template>
 
 <script>
-	import commonList from "@/components/common/common_list.vue";
-	import loadMore from '@/components/common/load-more.vue';
-	export default {
-		components:{
-			commonList,
-			loadMore
-		},
-		data() {
-			return {
-				// 列表高度
-				scrollH:600,
-				scrollInto:'',
-				// 顶部选项卡
-				tabIndex:0,
-				tabBars:[
-					{tid:1,name:'关注'},
-					{tid:2,name:'推荐'},
-					{tid:3,name:'关注'},
-					{tid:4,name:'关注'}
-				],
-				newsList:[]
-			}
-		},
-		onLoad() {
-			uni.getSystemInfo({
-				success:(res)=>{
-					this.scrollH = res.windowHeight -uni.upx2px(101);
-				}
-			})
-			// 根据选项生成列表
-			this.getData()
-		},
-		methods: {
-			// 获取数据
-			getData(){
-				let arr = [];
-				for (let i = 0; i < this.tabBars.length; i++) {
-					let obj = {
-						// 1加载更多 2加载中   3没有更多
-						loadMore:"上拉加载更多",
-						list:[{
+	const demo = [{
 						username:"昵称",
 						userpic:"/static/default.jpg",
 						newstime:"2019-11-28 14:10",
@@ -116,10 +83,68 @@
 						},
 						comment_count:2,
 						share_num:3
-					}]}
+					}];
+	import commonList from "@/components/common/common_list.vue";
+	import loadMore from '@/components/common/load-more.vue';
+	export default {
+		components:{
+			commonList,
+			loadMore
+		},
+		data() {
+			return {
+				// 列表高度
+				scrollH:600,
+				scrollInto:'',
+				// 顶部选项卡
+				tabIndex:0,
+				tabBars:[
+					{tid:1,name:'关注'},
+					{tid:2,name:'推荐'},
+					{tid:3,name:'关注'},
+					{tid:4,name:'关注'}
+				],
+				newsList:[]
+			}
+		},
+		// 监听搜索
+		onNavigationBarSearchInputClicked() {
+			uni.navigateTo({
+				url:'../search/search'
+			})
+		},
+		// 监听导航按钮的点击事件
+		onNavigationBarButtonTap() {
+			uni.navigateTo({
+				url:'../add-input/add-input'
+			})
+		},
+		onLoad() {
+			uni.getSystemInfo({
+				success:(res)=>{
+					this.scrollH = res.windowHeight -uni.upx2px(101);
+				}
+			})
+			// 根据选项生成列表
+			this.getData()
+		},
+		methods: {
+			// 获取数据
+			getData(){
+				let arr = [];
+				for (let i = 0; i < this.tabBars.length; i++) {
+					let obj = {
+						// 1加载更多 2加载中   3没有更多
+						loadmore:'上拉加载更多',
+						list:[]
+					}
+					if(i < 2){
+						obj.list = demo;
+					}	
 					arr.push(obj);
 				}
 				this.newsList = arr;
+				console.log(this.newsList)
 			},
 			// 关注事件
 			follow(e){
@@ -162,14 +187,14 @@
 			loadmore(index){
 				// 拿到当前列表
 				let item = this.newsList[index];
-				if(item.loadMore !=="上拉加载更多")return
+				if(item.loadmore !='上拉加载更多')return
 				// 修改当前列表当前加载状态
-				item.loadMore = '加载中';
+				this.newsList[index].loadmore = '加载中';
 				setTimeout(()=>{
 					item.list = [...item.list,...item.list]
 					// 回复加载状态
-					item.loadMore = '上拉加载更多';
-				},2000)
+					item.loadmore = '上拉加载更多';
+				},1000)
 			}
 		}
 	}

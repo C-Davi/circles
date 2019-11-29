@@ -37,7 +37,41 @@
 		{
 			"path":"pages/my/my"
 		}
-	],
+	    ,{
+            "path" : "pages/search/search",
+            "style" : {
+				"app-plus":{
+					"titleNView":{
+						// 搜索框配置
+						"searchInput":{
+							"align":"center",
+							"backgroundColor":"#F5F4F2",
+							"borderRadius":"4px",
+							"placeholder":"搜索帖子",
+							"placeholderColor":"#6D6C67"
+						},
+						"buttons":[
+							{
+								"color":"#333333",
+								"colorPressed":"#FD597C",
+								"float":"right",
+								"fontSize":"14px",
+								"text":"搜索"
+							}
+						]
+					}
+				}
+			}
+        }
+        ,{
+            "path" : "pages/add-input/add-input",
+            "style" : {
+				"app-plus":{
+					"titleNView":false
+				}
+			}
+        }
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "SD社区",
