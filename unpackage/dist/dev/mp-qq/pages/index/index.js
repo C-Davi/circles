@@ -129,39 +129,91 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;function _toConsumableArray(arr) {return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread();}function _nonIterableSpread() {throw new TypeError("Invalid attempt to spread non-iterable instance");}function _iterableToArray(iter) {if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter);}function _arrayWithoutHoles(arr) {if (Array.isArray(arr)) {for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) {arr2[i] = arr[i];}return arr2;}}var commonList = function commonList() {return __webpack_require__.e(/*! import() | components/common/common_list */ "components/common/common_list").then(__webpack_require__.bind(null, /*! @/components/common/common_list.vue */ 44));};var loadMore = function loadMore() {return __webpack_require__.e(/*! import() | components/common/load-more */ "components/common/load-more").then(__webpack_require__.bind(null, /*! @/components/common/load-more.vue */ 53));};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;function _toConsumableArray(arr) {return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread();}function _nonIterableSpread() {throw new TypeError("Invalid attempt to spread non-iterable instance");}function _iterableToArray(iter) {if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter);}function _arrayWithoutHoles(arr) {if (Array.isArray(arr)) {for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) {arr2[i] = arr[i];}return arr2;}} //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
+var demo = [{
+  username: "昵称",
+  userpic: "/static/default.jpg",
+  newstime: "2019-11-28 14:10",
+  isFollow: false,
+  title: "测试标题",
+  titlepic: "/static/demo/datapic/2.jpg",
+  support: {
+    type: "support",
+    support_count: 1,
+    unsupport_count: 2 },
 
+  comment_count: 2,
+  share_num: 0 },
 
+{
+  username: "昵称",
+  userpic: "/static/default.jpg",
+  newstime: "2019-11-28 14:10",
+  isFollow: false,
+  title: "测试标题",
+  titlepic: "",
+  support: {
+    type: "unsupport",
+    support_count: 1,
+    unsupport_count: 2 },
 
+  comment_count: 2,
+  share_num: 3 },
 
+{
+  username: "昵称",
+  userpic: "/static/default.jpg",
+  newstime: "2019-11-28 14:10",
+  isFollow: false,
+  title: "测试标题",
+  titlepic: "",
+  support: {
+    type: "",
+    support_count: 1,
+    unsupport_count: 2 },
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  comment_count: 2,
+  share_num: 3 }];var commonList = function commonList() {return __webpack_require__.e(/*! import() | components/common/common_list */ "components/common/common_list").then(__webpack_require__.bind(null, /*! @/components/common/common_list.vue */ 63));};var loadMore = function loadMore() {return __webpack_require__.e(/*! import() | components/common/load-more */ "components/common/load-more").then(__webpack_require__.bind(null, /*! @/components/common/load-more.vue */ 70));};var _default =
 
 
 
@@ -186,6 +238,18 @@ __webpack_require__.r(__webpack_exports__);
       newsList: [] };
 
   },
+  // 监听搜索
+  onNavigationBarSearchInputClicked: function onNavigationBarSearchInputClicked() {
+    uni.navigateTo({
+      url: '../search/search' });
+
+  },
+  // 监听导航按钮的点击事件
+  onNavigationBarButtonTap: function onNavigationBarButtonTap() {
+    uni.navigateTo({
+      url: '../add-input/add-input' });
+
+  },
   onLoad: function onLoad() {var _this = this;
     uni.getSystemInfo({
       success: function success(res) {
@@ -202,55 +266,16 @@ __webpack_require__.r(__webpack_exports__);
       for (var i = 0; i < this.tabBars.length; i++) {
         var obj = {
           // 1加载更多 2加载中   3没有更多
-          loadMore: "上拉加载更多",
-          list: [{
-            username: "昵称",
-            userpic: "/static/default.jpg",
-            newstime: "2019-11-28 14:10",
-            isFollow: false,
-            title: "测试标题",
-            titlepic: "/static/demo/datapic/2.jpg",
-            support: {
-              type: "support",
-              support_count: 1,
-              unsupport_count: 2 },
+          loadmore: '上拉加载更多',
+          list: [] };
 
-            comment_count: 2,
-            share_num: 0 },
-
-          {
-            username: "昵称",
-            userpic: "/static/default.jpg",
-            newstime: "2019-11-28 14:10",
-            isFollow: false,
-            title: "测试标题",
-            titlepic: "",
-            support: {
-              type: "unsupport",
-              support_count: 1,
-              unsupport_count: 2 },
-
-            comment_count: 2,
-            share_num: 3 },
-
-          {
-            username: "昵称",
-            userpic: "/static/default.jpg",
-            newstime: "2019-11-28 14:10",
-            isFollow: false,
-            title: "测试标题",
-            titlepic: "",
-            support: {
-              type: "",
-              support_count: 1,
-              unsupport_count: 2 },
-
-            comment_count: 2,
-            share_num: 3 }] };
-
+        if (i < 2) {
+          obj.list = demo;
+        }
         arr.push(obj);
       }
       this.newsList = arr;
+      console.log(this.newsList);
     },
     // 关注事件
     follow: function follow(e) {
@@ -293,14 +318,14 @@ __webpack_require__.r(__webpack_exports__);
     loadmore: function loadmore(index) {
       // 拿到当前列表
       var item = this.newsList[index];
-      if (item.loadMore !== "上拉加载更多") return;
+      if (item.loadmore != '上拉加载更多') return;
       // 修改当前列表当前加载状态
-      item.loadMore = '加载中';
+      this.newsList[index].loadmore = '加载中';
       setTimeout(function () {
         item.list = [].concat(_toConsumableArray(item.list), _toConsumableArray(item.list));
         // 回复加载状态
-        item.loadMore = '上拉加载更多';
-      }, 2000);
+        item.loadmore = '上拉加载更多';
+      }, 1000);
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-qq/dist/index.js */ 1)["default"]))
 

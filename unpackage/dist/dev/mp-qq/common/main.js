@@ -13,8 +13,10 @@ var _App = _interopRequireDefault(__webpack_require__(/*! ./App */ 9));function 
 
 _vue.default.config.productionTip = false;
 // 引入全局组件
-var divider = function divider() {return __webpack_require__.e(/*! import() | components/common/divider */ "components/common/divider").then(__webpack_require__.bind(null, /*! ./components/common/divider.vue */ 39));};
-_vue.default.component("divider", divider);
+var divider = function divider() {return __webpack_require__.e(/*! import() | components/common/divider */ "components/common/divider").then(__webpack_require__.bind(null, /*! ./components/common/divider.vue */ 53));};
+_vue.default.component("divider", divider);var noThing = function noThing() {return __webpack_require__.e(/*! import() | components/common/no-thing */ "components/common/no-thing").then(__webpack_require__.bind(null, /*! ./components/common/no-thing.vue */ 58));};
+
+_vue.default.component("no-thing", noThing);
 _App.default.mpType = 'app';
 
 var app = new _vue.default(_objectSpread({},

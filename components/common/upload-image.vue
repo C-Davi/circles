@@ -1,6 +1,6 @@
 <template>
 	<view class="px-2">
-		<view class="uni-uploader">
+		<view class="uni-uploader" v-if="show">
 			<view class="uni-uploader-head">
 				<view class="uni-uploader-title">点击可预览选好的图片</view>
 				<view class="uni-uploader-info">{{imageList.length}}/9</view>
@@ -41,7 +41,13 @@
 		['compressed', 'original']
 	]
 	export default {
-		props:['list'],
+		props:{
+			list:array,
+			show:{
+				type:bool,
+				default:true
+			}
+		},
 		data() {
 			return {
 				title: 'choose/previewImage',

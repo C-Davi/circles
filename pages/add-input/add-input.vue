@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<!-- 自定义导航 -->
-		<uni-nav-bar left-icon="back" statusBar="true" border="false">
+		<uni-nav-bar left-icon="back" statusBar="true" border="false" @click-left="goBack">
 			<view class="flex align-center justify-center w-100">
 				所有人可见<text class="iconfont icon-shezhi"></text>
 			</view>
@@ -9,7 +9,7 @@
 		<!-- 文本域 -->
 		<textarea v-model="content" placeholder="说一句" class="uni-textarea p-2"/>
 		<!-- 多图上传 -->
-		<upload-image :list="imageList" @change="changeImage"></upload-image>
+		<upload-image :show="show" ref="uploadImage" :list="imageList" @change="changeImage"></upload-image>
 		<!-- 底部操作条 -->
 		<view class="fixed-bottom bg-white flex align-center" style="height: 85rpx;">
 			<view class="iconfont icon-caidan footer-btn animated " hover-class="jello"></view>
@@ -17,7 +17,8 @@
 			<view class="iconfont icon-tupian footer-btn animated" hover-class="jello"></view>
 			<view class="bg-main text-white mr-auto flex justify-center align-center rounded mr-2 animated"
 			 hover-class="jello"
-			 style="width: 140rpx;height: 60rpx;">发送</view>
+			 style="width: 140rpx;height: 60rpx;"
+			 @click="iconClickEvent('uploadImage')">发送</view>
 		</view>
 	</view>
 </template>
@@ -38,6 +39,11 @@
 				showBack:false
 			}
 		},
+		computed:{
+			show(){
+				return this.imageList.length >0
+			}
+		},
 		// 监听返回
 		onBackPress() {
 			if((this.content !== '' || this.imageList.length > 0) && !this.showBack){
@@ -48,7 +54,13 @@
 					confirmText: '是',
 					success: res => {
 						// 是
-						if(res.confirm) this.store()
+						if(res.confirm){
+							this.store()
+						}else{
+							uni.removeStorage({
+								key:'add-input'
+							})
+						}
 						// 手动触发返回
 						uni.navigateBack({delta: 1});
 					},
@@ -72,6 +84,19 @@
 			})
 		},
 		methods: {
+			iconClickEvent(e){
+				switch (e){
+					case 'uploadImage':
+					this.$ref.uploadImage.chooseImage()
+						break;
+				}
+			},
+			// 返回
+			goBack(){
+				uni.navigateBack({
+					delta:1
+				})
+			},
 			// 选中图片
 			changeImage(e){
 				this.imageList = e;
