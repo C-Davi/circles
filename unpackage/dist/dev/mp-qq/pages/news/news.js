@@ -120,20 +120,71 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
-//
-//
-//
-//
-//
-var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var uniNavBar = function uniNavBar() {return __webpack_require__.e(/*! import() | components/uni-ui/uni-nav-bar/uni-nav-bar */ "components/uni-ui/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-ui/uni-nav-bar/uni-nav-bar.vue */ 75));};var _default =
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 {
+  components: {
+    uniNavBar: uniNavBar },
+
   data: function data() {
-    return {};
+    return {
+      scrollH: 500,
+      tabIndex: 0,
+      tabBars: [{
+        name: '关注' },
+      {
+        name: '话题' }] };
 
 
   },
-  methods: {} };exports.default = _default;
+  onLoad: function onLoad() {var _this = this;
+    uni.getSystemInfo({
+      success: function success(res) {
+        _this.scrollH = res.windowHeight - res.statusBarHeight - 44;
+      } });
+
+  },
+  methods: {
+    // 打开发布页
+    openAddInput: function openAddInput() {
+      uni.redirectTo({
+        url: '../add-input/add-input' });
+
+    },
+    changeTab: function changeTab(index) {
+      this.tabIndex = index;
+    } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-qq/dist/index.js */ 1)["default"]))
 
 /***/ })
 

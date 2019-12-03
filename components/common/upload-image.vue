@@ -42,9 +42,9 @@
 	]
 	export default {
 		props:{
-			list:array,
+			list:Array,
 			show:{
-				type:bool,
+				type:Boolean,
 				default:true
 			}
 		},

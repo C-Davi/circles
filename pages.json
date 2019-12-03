@@ -29,7 +29,12 @@
 			}
 		},
 		{
-			"path":"pages/news/news"
+			"path":"pages/news/news",
+			"style":{
+				"app-plus":{
+					"titleNView":false
+				}
+			}
 		},
 		{
 			"path":"pages/msg/msg"

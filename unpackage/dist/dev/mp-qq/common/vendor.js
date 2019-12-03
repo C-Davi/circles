@@ -8706,7 +8706,7 @@ module.exports = {"_from":"@dcloudio/uni-stat@next","_id":"@dcloudio/uni-stat@2.
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/index/index": {}, "pages/news/news": {}, "pages/msg/msg": {}, "pages/my/my": {}, "pages/search/search": {}, "pages/add-input/add-input": {} }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "SD社区", "navigationBarBackgroundColor": "#FFFFFF", "backgroundColor": "#FFFFFF" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/index/index": { "usingComponents": { "common-list": "/components/common/common_list", "load-more": "/components/common/load-more" } }, "pages/news/news": { "usingComponents": { "uni-nav-bar": "/components/uni-ui/uni-nav-bar/uni-nav-bar" } }, "pages/msg/msg": { "usingComponents": {} }, "pages/my/my": { "usingComponents": {} }, "pages/search/search": { "usingComponents": { "comment-list": "/components/common/common_list" } }, "pages/add-input/add-input": { "usingComponents": { "uni-nav-bar": "/components/uni-ui/uni-nav-bar/uni-nav-bar", "upload-image": "/components/common/upload-image" } } }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "SD社区", "navigationBarBackgroundColor": "#FFFFFF", "backgroundColor": "#FFFFFF" } };exports.default = _default;
 
 /***/ }),
 
