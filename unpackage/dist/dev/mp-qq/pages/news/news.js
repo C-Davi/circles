@@ -120,41 +120,101 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var uniNavBar = function uniNavBar() {return __webpack_require__.e(/*! import() | components/uni-ui/uni-nav-bar/uni-nav-bar */ "components/uni-ui/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-ui/uni-nav-bar/uni-nav-bar.vue */ 75));};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;function _toConsumableArray(arr) {return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread();}function _nonIterableSpread() {throw new TypeError("Invalid attempt to spread non-iterable instance");}function _iterableToArray(iter) {if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter);}function _arrayWithoutHoles(arr) {if (Array.isArray(arr)) {for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) {arr2[i] = arr[i];}return arr2;}} //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
+var demo = [{
+  username: "昵称",
+  userpic: "/static/default.jpg",
+  newstime: "2019-11-28 14:10",
+  isFollow: true,
+  title: "测试标题",
+  titlepic: "/static/demo/datapic/2.jpg",
+  support: {
+    type: "support",
+    support_count: 1,
+    unsupport_count: 2 },
 
+  comment_count: 2,
+  share_num: 0 },
 
+{
+  username: "昵称",
+  userpic: "/static/default.jpg",
+  newstime: "2019-11-28 14:10",
+  isFollow: true,
+  title: "测试标题",
+  titlepic: "",
+  support: {
+    type: "unsupport",
+    support_count: 1,
+    unsupport_count: 2 },
 
+  comment_count: 2,
+  share_num: 3 },
 
+{
+  username: "昵称",
+  userpic: "/static/default.jpg",
+  newstime: "2019-11-28 14:10",
+  isFollow: true,
+  title: "测试标题",
+  titlepic: "",
+  support: {
+    type: "",
+    support_count: 1,
+    unsupport_count: 2 },
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  comment_count: 2,
+  share_num: 3 }];var uniNavBar = function uniNavBar() {return __webpack_require__.e(/*! import() | components/uni-ui/uni-nav-bar/uni-nav-bar */ "components/uni-ui/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-ui/uni-nav-bar/uni-nav-bar.vue */ 75));};var commonList = function commonList() {return __webpack_require__.e(/*! import() | components/common/common_list */ "components/common/common_list").then(__webpack_require__.bind(null, /*! @/components/common/common_list.vue */ 63));};var loadMore = function loadMore() {return __webpack_require__.e(/*! import() | components/common/load-more */ "components/common/load-more").then(__webpack_require__.bind(null, /*! @/components/common/load-more.vue */ 70));};var _default =
 
 
 
 
 {
   components: {
-    uniNavBar: uniNavBar },
+    uniNavBar: uniNavBar,
+    commonList: commonList,
+    loadMore: loadMore },
 
   data: function data() {
     return {
@@ -163,8 +223,10 @@ __webpack_require__.r(__webpack_exports__);
       tabBars: [{
         name: '关注' },
       {
-        name: '话题' }] };
+        name: '话题' }],
 
+      list: [],
+      loadmore: "上拉加载更多" };
 
   },
   onLoad: function onLoad() {var _this = this;
@@ -173,6 +235,7 @@ __webpack_require__.r(__webpack_exports__);
         _this.scrollH = res.windowHeight - res.statusBarHeight - 44;
       } });
 
+    this.list = demo;
   },
   methods: {
     // 打开发布页
@@ -183,6 +246,37 @@ __webpack_require__.r(__webpack_exports__);
     },
     changeTab: function changeTab(index) {
       this.tabIndex = index;
+    },
+    // 滑动事件
+    onChangeTab: function onChangeTab(e) {
+      this.tabIndex = e.detail.current;
+    },
+    // 顶踩操作
+    doSupport: function doSupport(e) {
+      var item = this.list[e.index];
+      var msg = e.type === 'support' ? '顶' : '踩';
+      if (item.support.type === '') {
+        item.support[e.type + '_count']++;
+      } else if (item.support.type === 'support' && e.type === 'unsupport') {
+        item.support.support_count--;
+        item.support.unsupport_count++;
+      } else if (item.support.type === 'unsupport' && e.type === 'support') {
+        item.support.unsupport_count--;
+        item.support.support_count++;
+      }
+      item.support.type = e.type;
+      uni.showToast({
+        title: msg + '成功' });
+
+    },
+    // 上啦加载
+    loadmoreEvent: function loadmoreEvent() {var _this2 = this;
+      if (this.loadmore !== '上拉加载更多') return;
+      this.loadmore = '加载中...';
+      setTimeout(function () {
+        _this2.list = [].concat(_toConsumableArray(_this2.list), _toConsumableArray(_this2.list));
+        _this2.loadmore = '上拉加载更多';
+      }, 2000);
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-qq/dist/index.js */ 1)["default"]))
 
