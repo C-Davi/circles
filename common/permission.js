@@ -85,9 +85,9 @@ function contact() {
     var result = 0;
     var CNContactStore = plus.ios.import("CNContactStore");
     var cnAuthStatus = CNContactStore.authorizationStatusForEntityType(0);
-    if (cnAuthStatus === 0) {
+    if (authStatus === 0) {
         result = null;
-    } else if (cnAuthStatus == 3) {
+    } else if (authStatus == 3) {
         result = 1;
     } else {
         result = 0;
@@ -233,13 +233,26 @@ function gotoAppPermissionSetting() {
     }
 }
 
+function gotoiOSPermissionSetting() {
+    var UIApplication = plus.ios.import("UIApplication");
+    var application2 = UIApplication.sharedApplication();
+    var NSURL2 = plus.ios.import("NSURL");
+    var setting2 = NSURL2.URLWithString("App-prefs:root=General");
+    application2.openURL(setting2);
+
+    plus.ios.deleteObject(setting2);
+    plus.ios.deleteObject(NSURL2);
+    plus.ios.deleteObject(application2);
+}
+
 const permission = {
     get isIOS(){
         return typeof isIOS === 'boolean' ? isIOS : (isIOS = uni.getSystemInfoSync().platform === 'ios')
     },
     requestIOS: requestIOS,
     requestAndroid: requestAndroid,
-    gotoAppSetting: gotoAppPermissionSetting
+    gotoAppSetting: gotoAppPermissionSetting,
+    gotoiOSSetting: gotoiOSPermissionSetting
 }
 
 module.exports = permission

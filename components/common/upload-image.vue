@@ -10,11 +10,9 @@
 					<block v-for="(image,index) in imageList" :key="index">
 						
 						<view class="uni-uploader__file position-relative">
-							<image class="uni-uploader__img rounded" :src="image" :data-src="image" 
-							@tap="previewImage" mode="aspectFill"></image>
-							<view class="position-absolute top-0 right-0 rounded" 
-							style="padding:  0 15rpx;background-color: rgba(0,0,0,0.5);"
-							@click.stop="deleteImage(index)">
+							<image class="uni-uploader__img rounded" :src="image" :data-src="image" @tap="previewImage" mode="aspectFill"></image>
+							
+							<view class="position-absolute top-0 right-0 rounded" style="padding: 0 15rpx;background-color: rgba(0,0,0,0.5);" @click.stop="deleteImage(index)">
 								<text class="iconfont icon-shanchu text-white"></text>
 							</view>
 						</view>
@@ -41,7 +39,7 @@
 		['compressed', 'original']
 	]
 	export default {
-		props:{
+		props: {
 			list:Array,
 			show:{
 				type:Boolean,
@@ -61,7 +59,7 @@
 			}
 		},
 		onReady() {
-			this.imageList=this.list
+			this.imageList = this.list
 		},
 		onUnload() {
 			this.imageList = [],
@@ -72,22 +70,20 @@
 				this.countIndex = 8;
 		},
 		methods: {
-			// 删除选择图片
+			// 删除图片
 			deleteImage(index){
 				uni.showModal({
 					title: '提示',
-					content: '是否删除该图片？',
+					content: '是否要删除该图片？',
 					showCancel: true,
-					cancelText: '否',
-					confirmText: '是',
+					cancelText: '不删除',
+					confirmText: '删除',
 					success: res => {
-						if(res.confirm){
-								this.imageList.splice(index,1);
-								this.$emit('change',this.imageList);
+						if (res.confirm) {
+							this.imageList.splice(index,1)
+							this.$emit('change',this.imageList)
 						}
 					},
-					fail: () => {},
-					complete: () => {}
 				});
 			},
 			chooseImage: async function() {

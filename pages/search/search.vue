@@ -1,52 +1,216 @@
 <template>
 	<view>
 		<template v-if="searchList.length === 0">
-				<!-- 搜索历史 -->
-				<view class="py-2 font-md px-2">搜索历史</view>
-				<view class="flex flex-wrap">
-					<view class="border rounded font mx-2 my-1 px-2"
-					v-for="(item,index) in list" :key="index" hover-class="bg-light"
-					@click="tapSearchHistory(item)"
-					>{{item}}</view>
-				</view>
+			<!-- 搜索历史 -->
+			<view class="py-2 font-md px-2">搜索历史</view>
+			<view class="flex flex-wrap">
+				<view class="border rounded font mx-2 my-1 px-2" 
+				v-for="(item,index) in list" :key="index"
+				hover-class="bg-light"
+				@click="clickSearchHistory(item)">{{item}}</view>
+			</view>
 		</template>
 		<template v-else>
-			<!-- 搜索数据列表 -->
+			<!-- 数据列表 -->
 			<block v-for="(item,index) in searchList" :key="index">
-				<comment-list :item="item" :index="index"></comment-list>
+				<template v-if="type ==='post'">
+					<!-- 帖子 -->
+					<common-list :item="item" :index="index"></common-list>
+				</template>
+				<template v-else-if="type === 'topic'">
+					<!-- 话题 -->
+					<topic-list :item="item" :index="index"></topic-list>
+				</template>
+				<template v-else>
+					<!-- 用户 -->
+					<user-list :item="item" :index="index"></user-list>
+				</template>
 			</block>
 		</template>
+		
 	</view>
 </template>
 
 <script>
-	import commentList from '@/components/common/common_list.vue'
+	// 测试数据
+	const demo1 = [{
+		username:"昵称",
+		userpic:"/static/default.jpg",
+		newstime:"2019-10-20 下午04:30",
+		isFollow:false,
+		title:"我是标题",
+		titlepic:"/static/demo/datapic/11.jpg",
+		support:{
+			type:"support", // 顶
+			support_count:1,
+			unsupport_count:2
+		},
+		comment_count:2,
+		share_num:2
+	},
+	{
+		username:"昵称",
+		userpic:"/static/default.jpg",
+		newstime:"2019-10-20 下午04:30",
+		isFollow:false,
+		title:"我是标题",
+		titlepic:"",
+		support:{
+			type:"unsupport", // 踩
+			support_count:1,
+			unsupport_count:2
+		},
+		comment_count:2,
+		share_num:2
+	},
+	{
+		username:"昵称",
+		userpic:"/static/default.jpg",
+		newstime:"2019-10-20 下午04:30",
+		isFollow:false,
+		title:"我是标题",
+		titlepic:"",
+		support:{
+			type:"", // 未操作
+			support_count:1,
+			unsupport_count:2
+		},
+		comment_count:2,
+		share_num:2
+	}];
+	
+	const demo2 = [{
+		cover:"/static/demo/topicpic/1.jpeg",
+		title:"话题名称",
+		desc:"话题描述",
+		today_count:0,
+		news_count:10
+	},{
+		cover:"/static/demo/topicpic/1.jpeg",
+		title:"话题名称",
+		desc:"话题描述",
+		today_count:0,
+		news_count:10
+	},{
+		cover:"/static/demo/topicpic/1.jpeg",
+		title:"话题名称",
+		desc:"话题描述",
+		today_count:0,
+		news_count:10
+	},{
+		cover:"/static/demo/topicpic/1.jpeg",
+		title:"话题名称",
+		desc:"话题描述",
+		today_count:0,
+		news_count:10
+	},{
+		cover:"/static/demo/topicpic/1.jpeg",
+		title:"话题名称",
+		desc:"话题描述",
+		today_count:0,
+		news_count:10
+	},{
+		cover:"/static/demo/topicpic/1.jpeg",
+		title:"话题名称",
+		desc:"话题描述",
+		today_count:0,
+		news_count:10
+	},{
+		cover:"/static/demo/topicpic/1.jpeg",
+		title:"话题名称",
+		desc:"话题描述",
+		today_count:0,
+		news_count:10
+	},{
+		cover:"/static/demo/topicpic/1.jpeg",
+		title:"话题名称",
+		desc:"话题描述",
+		today_count:0,
+		news_count:10
+	},{
+		cover:"/static/demo/topicpic/1.jpeg",
+		title:"话题名称",
+		desc:"话题描述",
+		today_count:0,
+		news_count:10
+	},{
+		cover:"/static/demo/topicpic/1.jpeg",
+		title:"话题名称",
+		desc:"话题描述",
+		today_count:0,
+		news_count:10
+	}];
+	const demo3 = [{
+		avatar:"/static/default.jpg",
+		username:"昵称",
+		sex:1, // 0未知，1女性，2男性
+		age:24,
+		isFollow:true
+	},{
+		avatar:"/static/default.jpg",
+		username:"昵称",
+		sex:2, // 0未知，1女性，2男性
+		age:24,
+		isFollow:false
+	}];
+	import commonList from '@/components/common/common-list.vue';
+	import topicList from '@/components/news/topic-list.vue';
+	import userList from '@/components/user-list/user-list.vue';
 	export default {
-		components:{
-			commentList
+		components: {
+			commonList,
+			topicList,
+			userList
 		},
 		data() {
 			return {
-				searchText:'',
+				searchText:"",
+				list:['uni-app第二季商城类实战开发','uni-app第三季仿微信实战开发','实战教程','系列教程'],
 				// 搜索结果
 				searchList:[],
-				list:['沙雕乐园身边的沙雕朋友','每日沙雕打卡','咆哮2.0']
+				// 当前搜索类型
+				type:"post"
 			}
 		},
 		// 监听导航输入
-		onNavigationBarSearchInputChanged(e) {
-			this.searchText = e.text;
+		onNavigationBarSearchInputChanged(e){
+			this.searchText = e.text
 		},
-		// 监听导航搜索按钮
+		// 监听点击导航搜索按钮
 		onNavigationBarButtonTap(e) {
-			if(e.index ===0){
+			if (e.index === 0) {
 				this.searchEvent()
 			}
 		},
-		// 监听输入框搜索内容
+		onLoad(e) {
+			if (e.type) {
+				this.type = e.type
+			}
+			let pageTitle = '帖子'
+			switch (this.type){
+				case 'post':
+				pageTitle = '帖子'
+					break;
+				case 'topic':
+				pageTitle = '话题'
+					break;
+				case 'user':
+				pageTitle = '用户'
+					break;
+			}
+			// 修改搜索占位
+			// #ifdef APP-PLUS
+			let currentWebview = this.$mp.page.$getAppWebview();
+			let tn = currentWebview.getStyle().titleNView; 
+			tn.searchInput.placeholder = '搜索'+pageTitle; 
+			currentWebview.setStyle({
+				titleNView: tn  
+			})
+			// #endif
+		},
 		methods: {
 			// 点击搜索历史
-			tapSearchHistory(text){
+			clickSearchHistory(text){
 				this.searchText = text
 				this.searchEvent()
 			},
@@ -54,16 +218,27 @@
 			searchEvent(){
 				// 收起键盘
 				uni.hideKeyboard()
-				// 处于load状态
+				// 显示loading状态
 				uni.showLoading({
-					mask:true,
-					title:'加载中...'
+					title: '加载中...',
+					mask: false
 				})
 				// 请求搜索
-				setTimeout(()=> {
-					// 隐藏登录
+				setTimeout(()=>{
+					switch (this.type){
+						case 'post':
+						this.searchList = demo1
+							break;
+						case 'topic':
+						this.searchList = demo2
+							break;
+						case 'user':
+						this.searchList = demo3
+							break;
+					}
+					// 隐藏loading
 					uni.hideLoading()
-				}, 3000);
+				},3000)
 			}
 		}
 	}
